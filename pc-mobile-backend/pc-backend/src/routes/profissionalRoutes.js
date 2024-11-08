@@ -25,5 +25,11 @@ profissionalRoutes
     // verificarToken,
     ProfissionalController.deletarProfissional
   )
+  .post(
+    '/profissionais/',
+    // verificarToken,
+    ProfissionalController.criarProfissional
+  )
+  
 
 export default profissionalRoutes

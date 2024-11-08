@@ -58,6 +58,44 @@ class ProfissionalController {
         .json({ mensagem: `${error.message} - Falha na requisição.` })
     }
   }
+
+  static async criarProfissional(req, res) {
+    try {
+      const { nome, dataNascimento, email, senha, genero, especializacao } = req.body
+  
+      // Verifica se já existe um profissional com o mesmo email
+      const profissionalExistente = await Profissional.findOne({ email })
+      if (profissionalExistente) {
+        return res.status(400).json({ mensagem: 'Já existe um profissional com esse email.' })
+      }
+  
+      // Cria uma nova instância do profissional
+      const novoProfissional = new Profissional({
+        nome,
+        dataNascimento,
+        email,
+        senha,
+        genero,
+        especializacao
+      })
+  
+      // Salva o profissional no banco de dados
+      await novoProfissional.save()
+  
+      // Retorna uma resposta de sucesso
+      res.status(201).json({
+        mensagem: 'Profissional criado com sucesso!',
+        profissional: {
+          nome: novoProfissional.nome,
+          email: novoProfissional.email,
+          especializacao: novoProfissional.especializacao,
+        }
+      })
+    } catch (error) {
+      // Retorna uma resposta de erro
+      res.status(500).json({ mensagem: `${error.message} - Falha ao criar o profissional.` })
+    }
+  }
 }
 
 export default ProfissionalController

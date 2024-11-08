@@ -47,6 +47,32 @@ class ClienteController {
         .json({ mensagem: `${error.message} - Falha na requisição.` })
     }
   }
+
+  static async criarCliente(req, res) {
+    try {
+      // Extrai os dados do corpo da requisição
+      const { nome, dataNascimento, email, senha, genero } = req.body
+  
+      // Cria uma nova instância do cliente
+      const novoCliente = new Cliente({
+        nome,
+        dataNascimento,
+        email,
+        senha,
+        genero
+      })
+  
+      // Salva o cliente no banco de dados
+      await novoCliente.save()
+  
+      // Retorna uma resposta de sucesso
+      res.status(201).json({ mensagem: 'Cliente criado com sucesso!', cliente: novoCliente })
+    } catch (error) {
+      // Retorna uma resposta de erro
+      res.status(500).json({ mensagem: `${error.message} - Falha ao criar o cliente.` })
+    }
+  }
+  
 }
 
 export default ClienteController

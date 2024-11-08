@@ -7,6 +7,7 @@ const clienteRoutes = express.Router()
 clienteRoutes
   .get('/clientes', ClienteController.buscarTodosClientes)
   .get('/clientes/:id', ClienteController.buscarClientePorId)
+  .post('/clientes', ClienteController.criarCliente)
   .put('/clientes/:id', ClienteController.atualizarCliente)
   .delete('/clientes/:id', ClienteController.deletarCliente)
 

@@ -1,6 +1,9 @@
 import express from 'express'
 import conectarComBD from './config/dbConnect.js'
 import routes from './routes/index.js'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const connection = await conectarComBD()
 
